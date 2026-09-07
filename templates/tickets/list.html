@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Заявки{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h4 mb-0">Заявки</h1>
+  <form class="d-flex gap-2">
+    <select class="form-select form-select-sm" name="status" onchange="this.form.submit()">
+      <option value="">Все статусы</option>
+      {% for value, label in view.model.Status.choices %}<option value="{{ value }}" {% if request.GET.status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select>
+  </form>
+</div>
+<table class="table table-hover bg-white">
+  <thead><tr><th>#</th><th>Тема</th><th>Категория</th><th>Статус</th><th>Автор</th><th>Исполнитель</th><th>Создана</th></tr></thead>
+  <tbody>
+  {% for t in object_list %}
+    <tr>
+      <td>{{ t.pk }}</td>
+      <td><a href="{% url 'tickets:detail' t.pk %}">{{ t.title }}</a></td>
+      <td>{{ t.category }}</td>
+      <td><span class="badge text-bg-secondary">{{ t.get_status_display }}</span></td>
+      <td>{{ t.author }}</td><td>{{ t.assignee|default:"—" }}</td>
+      <td>{{ t.created_at|date:"d.m.Y H:i" }}</td>
+    </tr>
+  {% empty %}<tr><td colspan="7" class="text-muted">Заявок пока нет — <a href="{% url 'tickets:create' %}">создайте первую</a>.</td></tr>{% endfor %}
+  </tbody>
+</table>
+{% if is_paginated %}<nav><ul class="pagination">
+  {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">←</a></li>{% endif %}
+  <li class="page-item disabled"><span class="page-link">{{ page_obj.number }} / {{ paginator.num_pages }}</span></li>
+  {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">→</a></li>{% endif %}
+</ul></nav>{% endif %}
+{% endblock %}

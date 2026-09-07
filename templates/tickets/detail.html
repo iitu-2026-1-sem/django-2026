@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ object }}{% endblock %}
+{% block content %}
+<a href="{% url 'tickets:list' %}" class="small">← к списку</a>
+<h1 class="h4 mt-2">#{{ object.pk }} {{ object.title }}</h1>
+<p><span class="badge text-bg-secondary">{{ object.get_status_display }}</span> · {{ object.category }} · автор {{ object.author }} · исполнитель {{ object.assignee|default:"не назначен" }}</p>
+<div class="card"><div class="card-body" style="white-space: pre-wrap">{{ object.description }}</div></div>
+<p class="text-muted small mt-2">создана {{ object.created_at|date:"d.m.Y H:i" }}, обновлена {{ object.updated_at|date:"d.m.Y H:i" }}</p>
+{% endblock %}

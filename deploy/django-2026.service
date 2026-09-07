@@ -1,0 +1,13 @@
+[Unit]
+Description=django-2026 Service Desk (gunicorn :8300)
+After=network.target
+
+[Service]
+WorkingDirectory=%h/students/django-2026
+EnvironmentFile=%h/students/django-2026/.env
+ExecStart=%h/students/django-2026/.venv/bin/gunicorn servicedesk.wsgi:application --bind 127.0.0.1:8300 --workers 3 --timeout 60
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target

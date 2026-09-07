@@ -1,0 +1,12 @@
+name: Баг
+description: Что-то сломалось
+labels: ["bug"]
+body:
+  - type: textarea
+    id: steps
+    attributes: { label: Шаги воспроизведения }
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes: { label: Ожидалось / получилось }
+    validations: { required: true }

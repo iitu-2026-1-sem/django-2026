@@ -1,0 +1,19 @@
+name: Фича
+description: Новая функциональность Service Desk
+labels: ["feature"]
+body:
+  - type: input
+    id: group
+    attributes: { label: Группа, placeholder: "IT1-2401" }
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes: { label: Что нужно сделать, description: "Пользовательская история: как <роль> я хочу <что>, чтобы <зачем>" }
+    validations: { required: true }
+  - type: textarea
+    id: done
+    attributes: { label: Критерии готовности, placeholder: "- [ ] …" }
+    validations: { required: true }
+  - type: textarea
+    id: tech
+    attributes: { label: Технические заметки, placeholder: "модели / view / шаблоны / тесты" }

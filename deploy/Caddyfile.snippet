@@ -1,0 +1,5 @@
+# → вставить в ~/warp-iitu/caddy-sites.nix (или /etc/caddy/sites.d), затем nixos-rebuild switch в деплой-слот
+django.alma-ai.cc {
+	reverse_proxy 127.0.0.1:8300
+	encode gzip
+}
