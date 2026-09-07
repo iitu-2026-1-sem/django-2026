@@ -13,6 +13,10 @@ SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-secret-key-change-me")
 DEBUG = os.getenv("DEBUG", "1") == "1"
 ALLOWED_HOSTS = [h for h in os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",") if h]
 CSRF_TRUSTED_ORIGINS = [o for o in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",") if o]
+# За обратным прокси (nginx/Cloudflare) схема приходит в X-Forwarded-Proto — иначе CSRF считает запрос http
+if os.getenv("USE_X_FORWARDED_PROTO", "0") == "1":
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    USE_X_FORWARDED_HOST = True
 
 INSTALLED_APPS = [
     "django.contrib.admin",
